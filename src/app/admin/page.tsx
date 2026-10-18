@@ -55,5 +55,5 @@ export default async function AdminPage() {
     .select('*, rounds(name), question_options(*)')
     .order('round_id, order_index', { ascending: true })
 
-  return <AdminContent rounds={rounds} participants={participants} attempts={attempts} results={results} questions={questions} />
+  return <AdminContent rounds={rounds || []} participants={participants || []} attempts={attempts || []} results={results || []} questions={questions || []} />
 }

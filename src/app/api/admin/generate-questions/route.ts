@@ -132,7 +132,7 @@ ${content}`,
     const nextOrderIndex = existingQuestions?.[0]?.order_index + 1 || 0
 
     // Insert questions into database
-    const createdQuestions = []
+    const createdQuestions: any[] = []
     for (const question of questions) {
       const { data: newQuestion, error } = await serviceSupabase
         .from('questions')
