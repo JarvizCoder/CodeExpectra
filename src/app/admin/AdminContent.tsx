@@ -15,10 +15,16 @@ export default function AdminContent({ rounds, participants, attempts, results, 
   const [activeTab, setActiveTab] = useState('rounds')
   const [showAddQuestionForm, setShowAddQuestionForm] = useState(false)
   const [showMarksForm, setShowMarksForm] = useState(false)
+  const [showScheduleForm, setShowScheduleForm] = useState(false)
   const [selectedRound, setSelectedRound] = useState('')
   const [selectedUser, setSelectedUser] = useState('')
   const [manualScore, setManualScore] = useState('')
   const [manualMaxScore, setManualMaxScore] = useState('')
+  const [scheduleData, setScheduleData] = useState({
+    round_id: '',
+    start_time: '',
+    end_time: '',
+  })
 
   const handleRoundStatusChange = async (roundId: string, status: string, reason: string) => {
     try {
@@ -42,6 +48,33 @@ export default function AdminContent({ rounds, participants, attempts, results, 
     } catch (error) {
       console.error('Error updating round:', error)
       alert('Failed to update round. Please try again.')
+    }
+  }
+
+  const handleScheduleRound = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const response = await fetch('/api/rounds', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: scheduleData.round_id,
+          start_time: scheduleData.start_time,
+          end_time: scheduleData.end_time,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        alert(`Failed to schedule round: ${error.error}`)
+        return
+      }
+
+      setShowScheduleForm(false)
+      window.location.reload()
+    } catch (error) {
+      console.error('Error scheduling round:', error)
+      alert('Failed to schedule round. Please try again.')
     }
   }
 
@@ -147,13 +180,76 @@ export default function AdminContent({ rounds, participants, attempts, results, 
         {/* Tab Content */}
         {activeTab === 'rounds' && (
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <h2 className="text-xl font-bold text-gray-900 p-6 border-b">Round Management</h2>
+            <div className="p-6 border-b flex justify-between items-center">
+              <h2 className="text-xl font-bold text-gray-900">Round Management</h2>
+              <button
+                onClick={() => setShowScheduleForm(true)}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              >
+                Schedule Round
+              </button>
+            </div>
+            {showScheduleForm && (
+              <div className="p-6 bg-gray-50 border-b">
+                <form onSubmit={handleScheduleRound} className="space-y-4 max-w-md">
+                  <h3 className="text-lg font-semibold">Schedule Round</h3>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Round</label>
+                    <select
+                      value={scheduleData.round_id}
+                      onChange={(e) => setScheduleData({ ...scheduleData, round_id: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      required
+                    >
+                      <option value="">Select Round</option>
+                      {rounds?.map((round: any) => (
+                        <option key={round.id} value={round.id}>{round.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                    <input
+                      type="datetime-local"
+                      value={scheduleData.start_time}
+                      onChange={(e) => setScheduleData({ ...scheduleData, start_time: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                    <input
+                      type="datetime-local"
+                      value={scheduleData.end_time}
+                      onChange={(e) => setScheduleData({ ...scheduleData, end_time: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                      Schedule
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowScheduleForm(false)}
+                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Round</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Start Time</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">End Time</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Duration</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                 </tr>
@@ -170,6 +266,12 @@ export default function AdminContent({ rounds, participants, attempts, results, 
                         round.status === 'PAUSED' ? 'bg-yellow-100 text-yellow-800' :
                         'bg-gray-100 text-gray-800'
                       }`}>{round.status}</span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {round.start_time ? new Date(round.start_time).toLocaleString() : 'Not set'}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {round.end_time ? new Date(round.end_time).toLocaleString() : 'Not set'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{round.duration_minutes} min</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">

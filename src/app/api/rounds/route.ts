@@ -4,6 +4,8 @@ import { z } from 'zod'
 
 const updateRoundSchema = z.object({
   status: z.enum(['LOCKED', 'OPEN', 'PAUSED', 'CLOSED']).optional(),
+  start_time: z.string().optional(),
+  end_time: z.string().optional(),
 })
 
 export async function GET() {
