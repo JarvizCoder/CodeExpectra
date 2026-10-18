@@ -89,18 +89,18 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-amber-50">
+      <nav className="bg-amber-100 shadow-sm border-b border-amber-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-indigo-600">CodeBattle</h1>
+              <h1 className="text-2xl font-bold text-amber-800">CodeBattle</h1>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-gray-700">{profile?.full_name || profile?.email}</span>
+              <span className="text-amber-900">{profile?.full_name || profile?.email}</span>
               <Link
                 href="/auth/logout"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 Logout
               </Link>
@@ -111,8 +111,8 @@ export default async function DashboardPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Competition Rounds</h2>
-          <p className="mt-2 text-gray-600">Complete each round to qualify for the next stage</p>
+          <h2 className="text-3xl font-bold text-amber-900">Competition Rounds</h2>
+          <p className="mt-2 text-amber-700">Complete each round to qualify for the next stage</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -123,14 +123,14 @@ export default async function DashboardPage() {
             return (
               <div
                 key={round.id}
-                className={`bg-white rounded-lg shadow-md p-6 border-2 ${
-                  accessible ? 'border-indigo-500' : 'border-gray-200'
+                className={`bg-amber-50 rounded-lg shadow-md p-6 border-2 ${
+                  accessible ? 'border-amber-500' : 'border-amber-200'
                 }`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{round.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{round.description}</p>
+                    <h3 className="text-xl font-bold text-amber-900">{round.name}</h3>
+                    <p className="text-sm text-amber-700 mt-1">{round.description}</p>
                   </div>
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(
@@ -141,7 +141,7 @@ export default async function DashboardPage() {
                   </span>
                 </div>
 
-                <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div className="space-y-2 text-sm text-amber-800 mb-4">
                   <p>Type: {round.type}</p>
                   <p>Duration: {round.duration_minutes} minutes</p>
                   <p>Points per question: {round.points_per_question}</p>
@@ -155,14 +155,14 @@ export default async function DashboardPage() {
                 {accessible ? (
                   <Link
                     href={`/dashboard/${round.type.toLowerCase()}/${round.id}`}
-                    className="inline-block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                    className="inline-block w-full text-center px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   >
                     {status === 'IN_PROGRESS' ? 'Continue' : 'Start Round'}
                   </Link>
                 ) : (
                   <button
                     disabled
-                    className="inline-block w-full text-center px-4 py-2 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed"
+                    className="inline-block w-full text-center px-4 py-2 bg-amber-200 text-amber-500 rounded-md cursor-not-allowed"
                   >
                     {status === 'LOCKED' ? 'Locked' : 'Completed'}
                   </button>
@@ -175,35 +175,35 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Your Results */}
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Your Results</h3>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            <h3 className="text-xl font-bold text-amber-900 mb-4">Your Results</h3>
+            <div className="bg-amber-50 rounded-lg shadow-md overflow-hidden">
+              <table className="min-w-full divide-y divide-amber-200">
+                <thead className="bg-amber-100">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Round
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Score
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Max Score
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Qualified
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-amber-50 divide-y divide-amber-200">
                   {results?.map((result: any) => (
                     <tr key={result.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {rounds?.find((r: any) => r.id === result.round_id)?.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {result.score}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {result.max_score}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -221,7 +221,7 @@ export default async function DashboardPage() {
                   ))}
                   {!results || results.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-500">
+                      <td colSpan={4} className="px-6 py-4 text-center text-sm text-amber-700">
                         No results yet
                       </td>
                     </tr>
@@ -233,45 +233,45 @@ export default async function DashboardPage() {
 
           {/* Leaderboard */}
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Leaderboard (Top 10)</h3>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            <h3 className="text-xl font-bold text-amber-900 mb-4">Leaderboard (Top 10)</h3>
+            <div className="bg-amber-50 rounded-lg shadow-md overflow-hidden">
+              <table className="min-w-full divide-y divide-amber-200">
+                <thead className="bg-amber-100">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Rank
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Participant
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Round
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase tracking-wider">
                       Score
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-amber-50 divide-y divide-amber-200">
                   {leaderboard?.map((result: any, index: number) => (
                     <tr key={result.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-amber-900">
                         {index + 1}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {result.profiles?.full_name || result.profiles?.email}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {result.rounds?.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                         {result.score}
                       </td>
                     </tr>
                   ))}
                   {!leaderboard || leaderboard.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-500">
+                      <td colSpan={4} className="px-6 py-4 text-center text-sm text-amber-700">
                         No leaderboard data yet
                       </td>
                     </tr>
@@ -286,7 +286,7 @@ export default async function DashboardPage() {
           <div className="mt-8">
             <Link
               href="/admin"
-              className="inline-block px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+              className="inline-block px-6 py-3 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               Admin Portal
             </Link>

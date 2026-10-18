@@ -128,27 +128,27 @@ export default function AdminContent({ rounds, participants, attempts, results, 
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-amber-50">
+      <nav className="bg-amber-100 shadow-sm border-b border-amber-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <h1 className="text-2xl font-bold text-purple-600">Admin Portal</h1>
+            <h1 className="text-2xl font-bold text-amber-800">Admin Portal</h1>
             <div className="flex items-center gap-4">
               <Link
                 href="/admin/questions"
-                className="text-indigo-600 hover:text-indigo-700"
+                className="text-amber-700 hover:text-amber-900"
               >
                 Advanced Question Manager
               </Link>
               <Link
                 href="/dashboard"
-                className="text-indigo-600 hover:text-indigo-700"
+                className="text-amber-700 hover:text-amber-900"
               >
                 Back to Dashboard
               </Link>
               <Link
                 href="/auth/logout"
-                className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+                className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 Logout
               </Link>
@@ -159,7 +159,7 @@ export default function AdminContent({ rounds, participants, attempts, results, 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tab Navigation */}
-        <div className="mb-6 border-b border-gray-200">
+        <div className="mb-6 border-b border-amber-200">
           <nav className="-mb-px flex space-x-8">
             {tabs.map((tab) => (
               <button
@@ -167,8 +167,8 @@ export default function AdminContent({ rounds, participants, attempts, results, 
                 onClick={() => setActiveTab(tab.id)}
                 className={`${
                   activeTab === tab.id
-                    ? 'border-indigo-500 text-indigo-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-amber-500 text-amber-800'
+                    : 'border-transparent text-amber-600 hover:text-amber-900 hover:border-amber-300'
                 } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
               >
                 {tab.label}
@@ -179,26 +179,26 @@ export default function AdminContent({ rounds, participants, attempts, results, 
 
         {/* Tab Content */}
         {activeTab === 'rounds' && (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-6 border-b flex justify-between items-center">
-              <h2 className="text-xl font-bold text-gray-900">Round Management</h2>
+          <div className="bg-amber-50 rounded-lg shadow-md overflow-hidden">
+            <div className="p-6 border-b border-amber-200 flex justify-between items-center">
+              <h2 className="text-xl font-bold text-amber-900">Round Management</h2>
               <button
                 onClick={() => setShowScheduleForm(true)}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 Schedule Round
               </button>
             </div>
             {showScheduleForm && (
-              <div className="p-6 bg-gray-50 border-b">
+              <div className="p-6 bg-amber-100 border-b border-amber-200">
                 <form onSubmit={handleScheduleRound} className="space-y-4 max-w-md">
-                  <h3 className="text-lg font-semibold">Schedule Round</h3>
+                  <h3 className="text-lg font-semibold text-amber-900">Schedule Round</h3>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Round</label>
+                    <label className="block text-sm font-medium text-amber-800 mb-1">Round</label>
                     <select
                       value={scheduleData.round_id}
                       onChange={(e) => setScheduleData({ ...scheduleData, round_id: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-amber-300 rounded-md bg-amber-50"
                       required
                     >
                       <option value="">Select Round</option>
@@ -208,33 +208,33 @@ export default function AdminContent({ rounds, participants, attempts, results, 
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                    <label className="block text-sm font-medium text-amber-800 mb-1">Start Time</label>
                     <input
                       type="datetime-local"
                       value={scheduleData.start_time}
                       onChange={(e) => setScheduleData({ ...scheduleData, start_time: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-amber-300 rounded-md bg-amber-50"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                    <label className="block text-sm font-medium text-amber-800 mb-1">End Time</label>
                     <input
                       type="datetime-local"
                       value={scheduleData.end_time}
                       onChange={(e) => setScheduleData({ ...scheduleData, end_time: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-amber-300 rounded-md bg-amber-50"
                       required
                     />
                   </div>
                   <div className="flex gap-2">
-                    <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                    <button type="submit" className="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-all duration-300 hover:scale-105 hover:shadow-lg">
                       Schedule
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowScheduleForm(false)}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                      className="px-4 py-2 bg-amber-200 text-amber-700 rounded-md hover:bg-amber-300 transition-all duration-300"
                     >
                       Cancel
                     </button>
@@ -242,23 +242,23 @@ export default function AdminContent({ rounds, participants, attempts, results, 
                 </form>
               </div>
             )}
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-amber-200">
+              <thead className="bg-amber-100">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Round</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Start Time</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">End Time</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Duration</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Round</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Start Time</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">End Time</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Duration</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-amber-900 uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-amber-50 divide-y divide-amber-200">
                 {rounds?.map((round: any) => (
                   <tr key={round.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{round.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{round.type}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-amber-900">{round.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">{round.type}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         round.status === 'OPEN' ? 'bg-green-100 text-green-800' :
@@ -267,22 +267,22 @@ export default function AdminContent({ rounds, participants, attempts, results, 
                         'bg-gray-100 text-gray-800'
                       }`}>{round.status}</span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                       {round.start_time ? new Date(round.start_time).toLocaleString() : 'Not set'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
                       {round.end_time ? new Date(round.end_time).toLocaleString() : 'Not set'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{round.duration_minutes} min</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">{round.duration_minutes} min</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
                       {round.status === 'LOCKED' && (
-                        <button onClick={() => handleRoundStatusChange(round.id, 'OPEN', 'Opening round')} className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Open</button>
+                        <button onClick={() => handleRoundStatusChange(round.id, 'OPEN', 'Opening round')} className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition-all duration-300 hover:scale-105 hover:shadow-lg">Open</button>
                       )}
                       {round.status === 'OPEN' && (
-                        <button onClick={() => handleRoundStatusChange(round.id, 'PAUSED', 'Pausing round')} className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700">Pause</button>
+                        <button onClick={() => handleRoundStatusChange(round.id, 'PAUSED', 'Pausing round')} className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition-all duration-300 hover:scale-105 hover:shadow-lg">Pause</button>
                       )}
                       {(round.status === 'OPEN' || round.status === 'PAUSED') && (
-                        <button onClick={() => handleRoundStatusChange(round.id, 'CLOSED', 'Closing round')} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Close</button>
+                        <button onClick={() => handleRoundStatusChange(round.id, 'CLOSED', 'Closing round')} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-all duration-300 hover:scale-105 hover:shadow-lg">Close</button>
                       )}
                     </td>
                   </tr>
